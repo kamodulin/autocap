@@ -13,11 +13,11 @@ WORKDIR /app
 
 COPY ["Pipfile", "Pipfile.lock", "./"]
 
-RUN pipenv sync
+RUN pipenv install
 
 COPY . .
 
 EXPOSE 5000
 
 ENTRYPOINT ["/bin/bash"]
-CMD ["-c", "pipenv run python3 main.py"]
+CMD ["-c", "pipenv run python3 api.py"]
