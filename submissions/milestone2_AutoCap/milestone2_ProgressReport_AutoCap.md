@@ -64,6 +64,7 @@ From the loss plots, both models improve slighlty during training and we may wan
 There is no current update to our proposed timeline and components from Milestone 1. We are on track and the work shown here has been a starting point for model exploration and selection.
 
 ### Modeling
+- Since there are at least 5 captions per image, we do not need to pass the image through our CNN feature extractor each time. We will cache these features to disk.
 - We will also include validation data to better assess model performance and accuracy.
 - We will expand on the models chosen here to primarily increase captioning accuracy. Our first step will be to use pre-trained GLoVe embeddings to decrease training time and improve performance. Next, we will incorporate an attention mechanism to significantly improve our accuracy. This will also allow us to generate attention maps with respect to each word in the predicted caption to show the user in the web app. Further, we will give the web app user multiple image and language models to choose from (e.g. image: MobileNet, InceptionV3, VGG16; language: RNN, RNN with attention, etc.). We believe that this will be a unique way to incorporate a speed versus accuracy tradeoff.
 - Creating a large number of models will require us to incorporate Weights and Biases to track our models and their hyperparameters.
