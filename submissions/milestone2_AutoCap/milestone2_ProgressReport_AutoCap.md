@@ -62,6 +62,7 @@ From the loss plots, both models improve slightly during training and we may wan
 
 ## Future directions
 There is no current update to our proposed timeline and components from Milestone 1. We are on track and the work shown here has been a starting point for model exploration and selection.
+We have set up a GCP Bucket where we will be able to store the models along with any data that we choose to collect from the application once it is deployed. An example of data we might collect could be an image uploaded by a user with a caption that is approved or corrected by the user.
 
 ### Modeling
 - Since there are at least 5 captions per image, we do not need to pass the image through our CNN feature extractor each time. We will cache these features to disk.
