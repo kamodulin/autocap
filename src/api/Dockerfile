@@ -17,7 +17,7 @@ RUN pipenv install
 
 COPY . .
 
-EXPOSE 5000
+# EXPOSE 5000
 
 ENTRYPOINT ["/bin/bash"]
-CMD ["-c", "pipenv run python3 api.py"]
+CMD ["-c", "pipenv run python3 app.py"]

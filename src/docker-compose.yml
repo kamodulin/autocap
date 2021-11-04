@@ -6,8 +6,6 @@ services:
     build: ./api
     volumes:
       - ./api/:/app/
-    ports:
-      - 5000:5000
   frontend:
     container_name: react-frontend
     build: ./frontend

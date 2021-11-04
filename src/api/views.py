@@ -1,14 +1,17 @@
-from api import app
-from flask import request, jsonify
-from PIL import Image
+from flask import request
+
+import model
+from app import app
+
 
 @app.route('/submit', methods=['POST'])
 def submit():
     data = request.form.to_dict()
+    
+    image_object = request.files['image']
+    vision_model = data["vision"].lower().replace(" ", "_")
+    language_model = data["language"].lower().replace(" ", "_")
 
-    image = request.files['image']
-    vision = data["vision"]
-    language = data["language"]
-    image = Image.open(image)
+    prediction_results = model.predict(image_object, vision_model, language_model)
 
-    return jsonify({"vision": vision, "language": language, "image-size": image.size, "image-format": image.format})
+    return prediction_results

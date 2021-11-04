@@ -58,6 +58,7 @@ class App extends React.Component {
 
     post(`/submit`, formData).then(res => {
       console.log(res);
+      // will return caption, attention_plot
     })
       .catch(err => {
         console.log(err);
