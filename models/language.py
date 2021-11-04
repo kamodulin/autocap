@@ -1,3 +1,4 @@
+from models.vision import inceptionv3
 import tensorflow as tf
 
 __all__ = ["rnn", "rnn_attention"]
