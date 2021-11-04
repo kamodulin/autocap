@@ -21,16 +21,16 @@ def build_model(vision_model, language_model):
 
 def preprocess_image(image_object, vision_model):
     # if vision_model == "mobilenetv3":
-    #     image_width = 299
-    #     image_height = 299
+    #     image_width = 224
+    #     image_height = 224
     #     preprocess_input = tf.keras.applications.mobilenet_v3.preprocess_input
     # elif vision_model == "inceptionv3":
-    #     image_width = 224
-    #     image_height = 224
+    #     image_width = 299
+    #     image_height = 299
     #     preprocess_input = tf.keras.applications.inception_v3.preprocess_input
     # elif vision_model == "vgg16":
-    #     image_width = 224
-    #     image_height = 224
+    #     image_width = 299
+    #     image_height = 299
     #     preprocess_input = tf.keras.applications.vgg16.preprocess_input
     # else:
     #     raise Exception(f"Invalid vision model: {vision_model}")
