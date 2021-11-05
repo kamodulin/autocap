@@ -16,7 +16,8 @@ class App extends React.Component {
       imagePreview: null,
       image: null,
       vision: models.vision[0],
-      language: models.language[0]
+      language: models.language[0],
+      captionLoading: false,
     }
     this.handleModelChange = this.handleModelChange.bind(this);
     this.handleImageChange = this.handleImageChange.bind(this);
@@ -32,7 +33,7 @@ class App extends React.Component {
   }
 
   handleImageChange(e) {
-    this.setState({ 
+    this.setState({
       image: e.target.files[0],
       imagePreview: URL.createObjectURL(e.target.files[0])
     });
@@ -56,12 +57,15 @@ class App extends React.Component {
       formData.append(key, value);
     }
 
+    this.setState({ captionLoading: true });
+
     post(`/submit`, formData).then(res => {
       console.log(res);
-      // will return caption, attention_plot
+      this.setState({ captionLoading: false });
     })
       .catch(err => {
         console.log(err);
+        this.setState({ captionLoading: false });
       });
   }
 
@@ -72,15 +76,27 @@ class App extends React.Component {
           <ImageUpload image={this.state.imagePreview} onChange={this.handleImageChange} />
           <div className="relative mt-2">
             <div className="flex space-x-4 mt-1">
+              {/* this is very messy, need to clean up later
+                also, may want to use something like animate-pulse for the caption. it's useful for a skeleton loader */}
               {this.state.imagePreview && this.state.image ?
-                <>
-                  <button className="hover:bg-green-200 hover:text-green-800 group flex items-center rounded-md bg-green-100 text-green-600 text-sm font-medium px-4 py-2" onClick={this.handleSubmit} >
-                    Submit
+                this.state.captionLoading ?
+                  <button type="button" className="hover:bg-gray-200 hover:text-gray-800 group flex items-center rounded-md bg-gray-100 text-gray-600 text-sm font-medium px-4 py-2 cursor-not-allowed" disabled="">
+                    <svg className="animate-spin -ml-1 mr-3 h-5 w-5 text-gray-600" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                      <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                      <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                    </svg>
+                    Processing
                   </button>
-                  <button className="hover:bg-red-200 hover:text-red-800 group flex items-center rounded-md bg-red-100 text-red-600 text-sm font-medium px-4 py-2" onClick={() => this.destroyImage()} >
-                    Discard
-                  </button>
-                </> :
+                  :
+                  <>
+                    <button className="hover:bg-green-200 hover:text-green-800 group flex items-center rounded-md bg-green-100 text-green-600 text-sm font-medium px-4 py-2" onClick={this.handleSubmit} >
+                      Submit
+                    </button>
+                    <button className="hover:bg-red-200 hover:text-red-800 group flex items-center rounded-md bg-red-100 text-red-600 text-sm font-medium px-4 py-2" onClick={() => this.destroyImage()} >
+                      Discard
+                    </button>
+                  </>
+                :
                 <>
                   <button className="hover:bg-gray-200 hover:text-gray-800 group flex items-center rounded-md bg-gray-100 text-gray-600 text-sm font-medium px-4 py-2">
                     Random Google Image
