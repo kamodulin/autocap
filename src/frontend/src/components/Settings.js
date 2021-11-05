@@ -2,8 +2,8 @@ import React from "react";
 import Select from "./Select";
 
 function Settings(props) {
-    const { currentModels, models, onChange } = props;
-    const { vision, language } = currentModels;
+    const { models, onChange } = props;
+    
     return (
         <>
             <div>
@@ -16,13 +16,11 @@ function Settings(props) {
             </div>
             <Select label="Vision model"
                 name="vision"
-                value={vision}
                 options={models.vision}
                 onChange={onChange}
             />
             <Select label="Language model"
                 name="language"
-                value={language}
                 options={models.language}
                 onChange={onChange}
             />
