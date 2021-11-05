@@ -6,19 +6,22 @@ AUTOTUNE = tf.data.experimental.AUTOTUNE
 
 model_dict = {}
 
-
 def build_models(vision_model, language_model):
     if vision_model + "_" + language_model in model_dict:
-        encoder, decoder = model_dict[vision_model + "_" + language_model]
+        encoder, decoder, tokenizer = model_dict[vision_model + "_" + language_model]
     else:
-        encoder = tf.keras.models.load_model("models/encoder" + "_" + vision_model + "_" + language_model)
-        decoder = tf.keras.models.load_model("models/decoder" + "_" + vision_model + "_" + language_model)
-        model_dict[vision_model + "_" + language_model] = (encoder, decoder)
+        root = "models/" + vision_model + "_" + language_model + "/"
 
-    return encoder, decoder
+        encoder = tf.keras.models.load_model(root + "encoder")
+        decoder = tf.keras.models.load_model(root + "decoder")
+        tokenizer = load_tokenizer(root)
 
-def get_tokenizer(vision_model, language_model):
-    tokenizer_path = "models/tokenizer" + "_" + vision_model + "_" + language_model + ".pickle"
+        model_dict[vision_model + "_" + language_model] = (encoder, decoder, tokenizer)
+
+    return encoder, decoder, tokenizer
+
+def load_tokenizer(path):
+    tokenizer_path = path + "tokenizer.pickle"
 
     with open(tokenizer_path, "rb") as handle:
         tokenizer = pickle.load(handle)
@@ -81,8 +84,7 @@ def evaluate(image, encoder, decoder, tokenizer, max_seq_length=52, attention_fe
 def predict(image_object, vision_model, language_model):
     image = preprocess_image(image_object, vision_model)
     
-    encoder, decoder = build_models(vision_model, language_model)
-    tokenizer = get_tokenizer(vision_model, language_model)
+    encoder, decoder, tokenizer = build_models(vision_model, language_model)
 
     caption, attention_plot = evaluate(
         image,
