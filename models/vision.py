@@ -7,6 +7,7 @@ class CNN_Encoder(tf.keras.Model):
     def __init__(self, base_model, embedding_dim):
         super(CNN_Encoder, self).__init__()
         self.base_model = base_model
+        self.base_model.trainable = False
         self.embedding_dim = embedding_dim
         self.fc = tf.keras.layers.Dense(self.embedding_dim)
 

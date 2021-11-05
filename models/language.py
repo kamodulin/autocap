@@ -85,11 +85,13 @@ class RNN_Attention(tf.keras.Model):
         x = tf.concat([tf.expand_dims(context_vector, 1), x], axis=-1)
         output, state = self.gru(x)
         x = self.fc1(output)
-        x = tf.reshape(x, (-1, x.shape[2]))
+        x = tf.reshape(x, (-1, tf.shape(x)[2]))
         x = self.fc2(x)
         return x, state, attention_weights
 
-    @tf.function
+    @tf.function(
+        input_signature=[tf.TensorSpec(shape=None, dtype=tf.float32)]
+    )
     def reset_state(self, batch_size):
         return tf.zeros((batch_size, self.units))
 
@@ -104,10 +106,13 @@ class RNN_Attention(tf.keras.Model):
     def from_config(cls, config):
         return cls(**config)
 
+def rnn_attention(embedding_dim, units, vocab_size):
+    return RNN_Attention(embedding_dim, units, vocab_size)
+
 
 # def rnn(units, embedding_dim, vocab_size):
 #     return RNN(embedding_dim, units, vocab_size)
 
 
-def rnn_attention(units, embedding_dim, vocab_size):
+def rnn_attention(embedding_dim, units, vocab_size):
     return RNN_Attention(embedding_dim, units, vocab_size)
