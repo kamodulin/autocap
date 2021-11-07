@@ -2,23 +2,24 @@ import React from "react"
 import Loader from "./Loader";
 
 function Caption(props) {
-    const { processing, caption } = props;
+    const { status, caption } = props;
     return (
-        <>
-            {
-                (processing || caption) &&
-                <div className="text-md leading-6 text-gray-900 mt-4">
-                    <div>
-                        {processing
-                            ?
-                            <Loader text="Processing..." />
-                            :
-                            <h3>Caption: {caption}</h3>
+        <div className="text-md leading-6 text-gray-900">
+            <div>
+                {
+                    (() => {
+                        switch (status) {
+                            case "processing":
+                                return <Loader text="Processing..." />;
+                            case "success":
+                                return <h3>Caption: {caption}</h3>;
+                            case "error":
+                                return <h3>There was an error creating the caption.</h3>;
                         }
-                    </div>
-                </div>
-            }
-        </>
+                    })()
+                }
+            </div>
+        </div>
     )
 }
 

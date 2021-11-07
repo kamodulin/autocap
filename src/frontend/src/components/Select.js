@@ -4,18 +4,27 @@ class Select extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            value: this.props.value
+            value: null
         }
-        this.onChange = this.onChange.bind(this);
     }
 
-    onChange(event) {
+    onChange = (event) => {
         var type = event.target.name;
         var value = event.target.value;
-        this.setState({ value: value});
+
+        this.setState({ value: value });
         this.props.onChange(type, value);
     }
-    
+
+    componentDidMount() {
+        this.onChange({
+            target: {
+                name: this.props.name,
+                value: this.props.options[0]
+            }
+        });
+    }
+
     render() {
         const { name, label, options } = this.props;
         return (

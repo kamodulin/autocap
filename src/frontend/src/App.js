@@ -4,85 +4,50 @@ import Caption from './components/Caption';
 import Settings from './components/Settings';
 import post from './actions/post.js'
 
-function isEmpty(object) {
-  return !Object.values(object).some(x => x !== null && x !== '');
-}
-
 class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      availableModels: {
-        vision: null,
-        language: null
-      },
-      modelSettings: {
-        vision: null,
-        language: null
-      },
+      vision: null,
+      language: null,
       image: null,
-      captionProcessing: false,
+      captionStatus: null,
       caption: null,
     }
-
-    this.onModelChange = this.onModelChange.bind(this);
-    this.onImageChange = this.onImageChange.bind(this);
-    this.onSubmit = this.onSubmit.bind(this);
   }
 
-  componentDidMount() {
-    fetch('/models').then(res => res.json()).then(res => {
-      var vision = res.vision;
-      var language = res.language;
-      this.setState({
-        availableModels: {
-          vision: vision,
-          language: language
-        },
-        modelSettings: {
-          vision: vision[0],
-          language: language[0]
-        },
-        modelsLoaded: true
-      });
-    });
-  }
-
-  onModelChange(type, value) {
+  onModelChange = (type, value) => {
     if (type === "vision") {
       this.setState({
-        modelSettings: {
-          vision: value,
-          language: this.state.modelSettings.language
-        }
+        vision: value
       });
     } else if (type === "language") {
       this.setState({
-        modelSettings: {
-          vision: this.state.modelSettings.vision,
-          language: value
-        },
+        language: value
       });
     }
   }
 
-  onImageChange(image) {
+  onImageChange = (image) => {
     this.setState({
       image: image
     });
     if (!image) {
       this.setState({
+        captionStatus: null,
         caption: null
       });
     }
   }
 
-  onSubmit() {
-    this.setState({ captionProcessing: true });
+  onSubmit = () => {
+    this.setState({
+      captionStatus: "processing"
+    });
 
     var payload = {
-      vision: this.state.modelSettings.vision,
-      language: this.state.modelSettings.language,
+      vision: this.state.vision,
+      language: this.state.language,
       image: this.state.image
     }
 
@@ -93,11 +58,15 @@ class App extends React.Component {
     }
 
     post(`/submit`, formData).then(res => {
-      this.setState({ captionProcessing: false, caption: res.caption });
+      this.setState({
+        captionStatus: "success",
+        caption: res.caption
+      });
     })
       .catch(err => {
-        console.log(err);
-        this.setState({ captionProcessing: false });
+        this.setState({
+          captionStatus: "error"
+        });
       });
   }
 
@@ -105,18 +74,19 @@ class App extends React.Component {
     return (
       <div id="App">
         <h2 className="text-2xl font-medium leading-6 text-black mx-auto">
-          AutoCap: Automatic Image Captioning
+          AutoCap: Automatic Image Captioning 📸✨
         </h2>
         <div id="container">
-          <div className="flex-grow pr-6">
+          <div id="content">
             <ImageUpload onChange={this.onImageChange} onSubmit={this.onSubmit} />
-            <Caption processing={this.state.captionProcessing} caption={this.state.caption} />
+            <Caption caption={this.state.caption} status={this.state.captionStatus} />
           </div>
-          <div className="flex-shrink-0 space-y-6 pl-6">
-            {!isEmpty(this.state.availableModels) && <Settings models={this.state.availableModels} onChange={this.onModelChange} />}
+          <div id="settings">
+            <Settings onChange={this.onModelChange} />
           </div>
         </div>
       </div>
+
     );
   }
 }
