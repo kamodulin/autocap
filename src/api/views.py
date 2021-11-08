@@ -4,7 +4,6 @@ from flask import request
 import model
 from app import app
 
-
 models = {
     "vision" : {
         # "MobileNetV3Small": "mobilenetv3",
@@ -28,14 +27,17 @@ def get_models():
     }
 
 
-@app.route('/submit', methods=['POST'])
-def submit():
+@app.route('/predict', methods=['POST'])
+def predict():
     data = request.form.to_dict()
 
     image_object = request.files['image']
     vision_model = models["vision"][data["vision"]]
     language_model = models["language"][data["language"]]
 
-    prediction_results = model.predict(image_object, vision_model, language_model)
+    caption, attention_plot = model.predict(image_object, vision_model, language_model)
 
-    return prediction_results
+    return {
+        "caption": caption,
+        # "attention_plot": attention_plot
+    }

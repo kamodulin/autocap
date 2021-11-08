@@ -57,7 +57,7 @@ class App extends React.Component {
       formData.append(key, value);
     }
 
-    post(`/submit`, formData).then(res => {
+    post(`/predict`, formData).then(res => {
       this.setState({
         captionStatus: "success",
         caption: res.caption
@@ -69,7 +69,7 @@ class App extends React.Component {
         });
       });
   }
-
+  
   render() {
     return (
       <div id="App">

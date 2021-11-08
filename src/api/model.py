@@ -2,9 +2,8 @@ import numpy as np
 import tensorflow as tf
 import pickle
 
-AUTOTUNE = tf.data.experimental.AUTOTUNE
-
 model_dict = {}
+
 
 def build_models(vision_model, language_model):
     if vision_model + "_" + language_model in model_dict:
@@ -20,6 +19,7 @@ def build_models(vision_model, language_model):
 
     return encoder, decoder, tokenizer
 
+
 def load_tokenizer(path):
     tokenizer_path = path + "tokenizer.pickle"
 
@@ -27,6 +27,7 @@ def load_tokenizer(path):
         tokenizer = pickle.load(handle)
 
     return tokenizer
+
 
 def preprocess_image(image_object, vision_model):
     if vision_model == "mobilenetv3":
@@ -56,6 +57,7 @@ def preprocess_image(image_object, vision_model):
     image = load_image(image_object)
     return image
 
+
 def evaluate(image, encoder, decoder, tokenizer, max_seq_length=52, attention_features_shape=64):
     features = encoder(tf.expand_dims(image, axis=0))
 
@@ -81,6 +83,7 @@ def evaluate(image, encoder, decoder, tokenizer, max_seq_length=52, attention_fe
     
     return result, attention_plot
 
+
 def predict(image_object, vision_model, language_model):
     image = preprocess_image(image_object, vision_model)
     
@@ -95,8 +98,4 @@ def predict(image_object, vision_model, language_model):
 
     caption = " ".join(caption)
 
-    return {
-        "vision_model": vision_model,
-        "language_model": language_model,
-        "caption": caption,
-    }
+    return caption, attention_plot
