@@ -15,6 +15,8 @@ function Caption(props) {
                                 return <h3>Caption: {caption}</h3>;
                             case "error":
                                 return <h3>There was an error creating the caption.</h3>;
+                            default:
+                                return "";
                         }
                     })()
                 }

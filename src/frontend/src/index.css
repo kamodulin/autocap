@@ -29,7 +29,7 @@ select {
 }
 
 #container {
-  @apply container max-w-5xl mx-auto flex flex-wrap sm:flex-nowrap items-stretch my-6 space-y-6 sm:space-y-0 sm:space-x-6;
+  @apply flex flex-col-reverse sm:flex-row items-stretch my-6 space-y-6 space-y-reverse sm:space-y-0 sm:space-x-6;
 }
 
 #content {
@@ -37,7 +37,7 @@ select {
 }
 
 #settings {
-  @apply flex-shrink-0 space-y-6;
+  @apply flex-shrink-0 space-y-4;
 }
 
 .button {
