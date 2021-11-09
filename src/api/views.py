@@ -5,13 +5,13 @@ import model
 from app import app
 
 models = {
-    "vision" : {
-        # "MobileNetV3Small": "mobilenetv3",
+    "vision": {
+        "EfficientNet B0": "efficientnetb0",
         "InceptionV3": "inceptionv3",
         # "ResNet50": "resnet50",
-        # "VGG16": "vgg16"
+        "VGG16": "vgg16"
     },
-    "language" : {
+    "language": {
         # "RNN": "rnn",
         "RNN with attention": "rnn_attention",
         # "BERT": "bert"
@@ -21,10 +21,7 @@ models = {
 
 @app.route('/models', methods=['GET'])
 def get_models():
-    return {
-        "vision": list(models["vision"].keys()),
-        "language": list(models["language"].keys())
-    }
+    return {key: list(value.keys()) for key, value in models.items()}
 
 
 @app.route('/predict', methods=['POST'])
@@ -35,7 +32,8 @@ def predict():
     vision_model = models["vision"][data["vision"]]
     language_model = models["language"][data["language"]]
 
-    caption, attention_plot = model.predict(image_object, vision_model, language_model)
+    caption, attention_plot = model.predict(image_object, vision_model,
+                                            language_model)
 
     return {
         "caption": caption,

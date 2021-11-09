@@ -30,7 +30,7 @@ def load_tokenizer(path):
 
 
 def preprocess_image(image_object, vision_model):
-    if vision_model == "mobilenetv3":
+    if vision_model == "efficientnetb0":
         image_width = 224
         image_height = 224
         preprocess_input = tf.keras.applications.mobilenet_v3.preprocess_input
@@ -58,7 +58,7 @@ def preprocess_image(image_object, vision_model):
     return image
 
 
-def evaluate(image, encoder, decoder, tokenizer, max_seq_length=52, attention_features_shape=64):
+def evaluate(image, encoder, decoder, tokenizer, *, max_seq_length=52, attention_features_shape=64):
     features = encoder(tf.expand_dims(image, axis=0))
 
     attention_plot = np.zeros((max_seq_length, attention_features_shape))
@@ -88,12 +88,20 @@ def predict(image_object, vision_model, language_model):
     image = preprocess_image(image_object, vision_model)
     
     encoder, decoder, tokenizer = build_models(vision_model, language_model)
+    
+    if vision_model == "efficientnetb0":
+        attention_features_shape = 7 * 7
+    elif vision_model == "vgg16":
+        attention_features_shape = 9 * 9
+    else:
+        attention_features_shape = 8 * 8
 
     caption, attention_plot = evaluate(
         image,
         encoder,
         decoder,
-        tokenizer
+        tokenizer,
+        attention_features_shape=attention_features_shape
     )
 
     caption = " ".join(caption)
