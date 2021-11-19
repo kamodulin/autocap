@@ -2,7 +2,7 @@ import React from 'react';
 import ImageUpload from './components/ImageUpload';
 import Caption from './components/Caption';
 import Settings from './components/Settings';
-import post from './actions/post.js'
+import post from './actions/requests'
 
 class App extends React.Component {
   constructor(props) {
@@ -57,7 +57,7 @@ class App extends React.Component {
       formData.append(key, value);
     }
 
-    post(`/predict`, formData).then(res => {
+    post("/predict", formData).then(res => {
       this.setState({
         captionStatus: "success",
         caption: res.caption
@@ -69,7 +69,7 @@ class App extends React.Component {
         });
       });
   }
-  
+
   render() {
     return (
       <div id="App">

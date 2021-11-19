@@ -1,6 +1,7 @@
 import React from "react";
 import Loader from "./Loader";
 import Select from "./Select";
+import get from "./actions/requests";
 
 class Settings extends React.Component {
     constructor(props) {
@@ -15,7 +16,7 @@ class Settings extends React.Component {
     }
 
     componentDidMount() {
-        fetch('/models').then(res => res.json()).then(res => {
+        get('/models').then(res => {
             var vision = res.vision;
             var language = res.language;
             this.setState({
