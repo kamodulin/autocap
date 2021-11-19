@@ -1,7 +1,7 @@
 import React from "react";
 import Loader from "./Loader";
 import Select from "./Select";
-import get from "./actions/requests";
+import { get } from "../actions/requests";
 
 class Settings extends React.Component {
     constructor(props) {
