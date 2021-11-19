@@ -2,7 +2,7 @@ import React from 'react';
 import ImageUpload from './components/ImageUpload';
 import Caption from './components/Caption';
 import Settings from './components/Settings';
-import post from './actions/requests'
+import { post } from './actions/requests'
 
 class App extends React.Component {
   constructor(props) {
