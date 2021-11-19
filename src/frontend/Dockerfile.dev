@@ -1,6 +1,4 @@
-FROM python:3.8-slim-buster
-
-ENV PYENV_SHELL=/bin/bash
+FROM node:14.9.0-buster-slim
 
 RUN set -ex; \
     apt-get update && \
@@ -8,20 +6,18 @@ RUN set -ex; \
     apt-get install -y --no-install-recommends build-essential git && \
     useradd -ms /bin/bash app -d /home/app -G sudo -u 2000 -p "$(openssl passwd -1 Passw0rd)" && \
     mkdir -p /app && \
-    chown app:app /app && \
-    pip install --no-cache-dir --upgrade pip && \
-    pip install pipenv
+    chown app:app /app
 
-EXPOSE 5000
+EXPOSE 3000
 
 USER app
 WORKDIR /app
 
-COPY ["Pipfile", "Pipfile.lock", "./"]
+COPY "package*.json" .
 
-RUN pipenv install
+RUN npm install
 
 COPY . .
 
 ENTRYPOINT ["/bin/bash"]
-CMD ["-c", "pipenv run python3 app.py"]
+CMD ["-c", "npm start"]
