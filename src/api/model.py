@@ -61,7 +61,7 @@ def preprocess_image(image_object, vision_model):
 def evaluate(image, encoder, decoder, tokenizer, *, max_seq_length=52, attention_features_shape=64):
     features = encoder(tf.expand_dims(image, axis=0))
 
-    attention_plot = np.zeros((max_seq_length, attention_features_shape))
+    attention_array = np.zeros((max_seq_length, attention_features_shape))
     hidden = decoder.reset_state(batch_size=1)
 
     dec_input = tf.expand_dims([tokenizer.word_index['<start>']], 0)
@@ -69,19 +69,28 @@ def evaluate(image, encoder, decoder, tokenizer, *, max_seq_length=52, attention
 
     for i in range(max_seq_length):
         predictions, hidden, attention_weights = decoder(dec_input, features, hidden)
-        attention_plot[i] = tf.reshape(attention_weights, (-1, )).numpy()
+        attention_array[i] = tf.reshape(attention_weights, (-1, )).numpy()
         predicted_id = tf.random.categorical(predictions, 1)[0][0].numpy()
     
         result.append(tokenizer.index_word[predicted_id])
         
         if tokenizer.index_word[predicted_id] == '<end>':
-            return result[:-1], attention_plot
+            break
 
         dec_input = tf.expand_dims([predicted_id], 0)
 
-    attention_plot = attention_plot[:len(result), :]
+    result = result[:-1]
+    num_words = len(result)
+    attention_array = attention_array[:num_words]
+
+    max = np.max(attention_array, axis=1, keepdims=True)
+    min = np.min(attention_array, axis=1, keepdims=True)
+    attention_array = (attention_array - min) / (max - min)
     
-    return result, attention_plot
+    length = int(np.sqrt(attention_features_shape))
+    attention_array = attention_array.reshape(-1,  length, length)
+
+    return result, attention_array
 
 
 def predict(image_object, vision_model, language_model):
@@ -96,7 +105,7 @@ def predict(image_object, vision_model, language_model):
     else:
         attention_features_shape = 8 * 8
 
-    caption, attention_plot = evaluate(
+    caption, attention_array = evaluate(
         image,
         encoder,
         decoder,
@@ -106,4 +115,4 @@ def predict(image_object, vision_model, language_model):
 
     caption = " ".join(caption)
 
-    return caption, attention_plot
+    return caption, attention_array
