@@ -1,8 +1,9 @@
 import React from 'react';
-import ImageUpload from './components/ImageUpload';
+import Image from './components/Image';
 import Caption from './components/Caption';
 import Settings from './components/Settings';
 import { post } from './actions/requests'
+
 
 class App extends React.Component {
   constructor(props) {
@@ -13,6 +14,8 @@ class App extends React.Component {
       image: null,
       captionStatus: null,
       caption: null,
+      attentionArray: null,
+      attentionOverlay: null,
     }
   }
 
@@ -35,10 +38,25 @@ class App extends React.Component {
     if (!image) {
       this.setState({
         captionStatus: null,
-        caption: null
+        caption: null,
+        attentionArray: null,
+        attentionOverlay: null,
       });
     }
   }
+
+  onWordHover = (idx) => {
+    if (idx !== null && this.state.attentionArray) {
+      this.setState({
+        attentionOverlay: this.state.attentionArray[idx]
+      });
+    } else {
+      this.setState({
+        attentionOverlay: null
+      });
+    }
+  }
+
 
   onSubmit = () => {
     this.setState({
@@ -60,7 +78,8 @@ class App extends React.Component {
     post("/predict", formData).then(res => {
       this.setState({
         captionStatus: "success",
-        caption: res.caption
+        caption: res.caption,
+        attentionArray: res.attentionArray
       });
     })
       .catch(err => {
@@ -78,8 +97,8 @@ class App extends React.Component {
         </h2>
         <div id="container">
           <div id="content">
-            <ImageUpload onChange={this.onImageChange} onSubmit={this.onSubmit} />
-            <Caption caption={this.state.caption} status={this.state.captionStatus} />
+            <Image attentionOverlay={this.state.attentionOverlay} onChange={this.onImageChange} onSubmit={this.onSubmit} />
+            <Caption caption={this.state.caption} status={this.state.captionStatus} onWordHover={this.onWordHover} />
           </div>
           <div id="settings">
             <Settings onChange={this.onModelChange} />

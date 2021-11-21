@@ -1,6 +1,7 @@
 import React from 'react';
+import AttentionOverlay from './AttentionOverlay';
 
-class ImageUpload extends React.Component {
+class Image extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -38,7 +39,10 @@ class ImageUpload extends React.Component {
         return (
             <>
                 {this.state.preview ?
-                    <img src={this.state.preview} alt="Uploaded file" className="w-full rounded-md mx-auto" />
+                    <div className="relative w-full rounded-md mx-auto overflow-hidden">
+                        {this.props.attentionOverlay ? <AttentionOverlay array={this.props.attentionOverlay} /> : null}
+                        <img src={this.state.preview} alt="Uploaded file" className="w-full" />
+                    </div>
                     :
                     <div className="flex flex-wrap p-8 content-center justify-center border-2 border-gray-300 border-dashed rounded-md">
                         <div className="space-y-1 text-center">
@@ -53,7 +57,6 @@ class ImageUpload extends React.Component {
                             </div>
                             <p className="text-xs text-gray-500">We accept JPG and PNG files.</p>
                         </div>
-
                     </div>
                 }
                 <div className="relative my-4">
@@ -85,4 +88,4 @@ class ImageUpload extends React.Component {
     }
 }
 
-export default ImageUpload;
+export default Image;
