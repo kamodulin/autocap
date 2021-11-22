@@ -36,5 +36,5 @@ def predict():
 
     return {
         "caption": caption,
-        "attentionArray": attention_array.tolist()
+        "attention": attention_array.tolist()
     }
