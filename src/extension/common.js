@@ -21,7 +21,6 @@ async function post(endpoint, data) {
     return await resp.json();
 }
 
-
 async function process(file) {
     var payload = {
         vision: VISION_MODEL,
