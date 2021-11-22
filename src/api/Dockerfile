@@ -21,7 +21,7 @@ COPY ["Pipfile", "Pipfile.lock", "./"]
 
 RUN pipenv install
 
-COPY . .
+COPY . ./
 
 ENTRYPOINT ["/bin/bash"]
 CMD ["-c", "pipenv run python3 app.py"]
