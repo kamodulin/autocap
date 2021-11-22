@@ -6,7 +6,7 @@ class Image extends React.Component {
         super(props);
         this.state = {
             preview: null,
-            file: null
+            file: null,
         }
     }
 
@@ -40,11 +40,13 @@ class Image extends React.Component {
             <>
                 {this.state.preview ?
                     <div className="relative w-full rounded-md mx-auto overflow-hidden">
-                        {this.props.attentionOverlay ? <AttentionOverlay array={this.props.attentionOverlay} /> : null}
+                        {this.props.attention.data && this.props.attention.idx &&
+                            <AttentionOverlay array={this.props.attention.idx} />
+                        }
                         <img src={this.state.preview} alt="Uploaded file" className="w-full" />
                     </div>
                     :
-                    <div className="flex flex-wrap p-8 content-center justify-center border-2 border-gray-300 border-dashed rounded-md">
+                    <div className="flex flex-wrap p-8 h-full content-center justify-center border-2 border-gray-300 border-dashed rounded-md">
                         <div className="space-y-1 text-center">
                             <svg xmlns="http://www.w3.org/2000/svg" className="mx-auto h-12 w-12 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1} d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
@@ -59,29 +61,18 @@ class Image extends React.Component {
                         </div>
                     </div>
                 }
-                <div className="relative my-4">
-                    <div className="flex space-x-4">
-                        {this.state.preview ?
-                            <>
-                                <button className="green-button" onClick={this.onSubmit} >
-                                    Submit
-                                </button>
-                                <button className="red-button" onClick={this.destroyImage} >
-                                    Discard
-                                </button>
-                            </>
-                            :
-                            <>
-                                <button className="gray-button">
-                                    Random Google Image
-                                </button>
-                                <button className="gray-button">
-                                    Random MS-COCO Image
-                                </button>
-                            </>
-                        }
+                {this.state.preview &&
+                    <div className="relative my-4">
+                        <div className="flex space-x-4">
+                            <button className="green-button" onClick={this.onSubmit} >
+                                Submit
+                            </button>
+                            <button className="red-button" onClick={this.destroyImage} >
+                                Discard
+                            </button>
+                        </div>
                     </div>
-                </div>
+                }
             </>
         )
 
