@@ -4,10 +4,9 @@ document.addEventListener("DOMContentLoaded", function (event) {
     
     for (let i = 0; i < imagesLength; i++) {
         let image = images[i];
-        if (true) {
+        if (!image.alt) {
             srcToFile(images[i].src).then(file => {
                 process(file).then(res => {
-                    console.log(i, image, res);
                     image.alt = res;
                 });
             });
