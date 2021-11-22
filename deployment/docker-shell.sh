@@ -16,11 +16,11 @@ docker build -t $IMAGE_NAME -f Dockerfile .
 # Run the container
 docker run --rm --name $IMAGE_NAME -ti \
 -v /var/run/docker.sock:/var/run/docker.sock \
---mount type=bind,source=$BASE_DIR,target=/app \
---mount type=bind,source=$BASE_DIR/../secrets/,target=/secrets \
+--mount type=bind,source=$BASE_DIR/scripts/,target=/app \
+--mount type=bind,source=$BASE_DIR/secrets/,target=/secrets \
 --mount type=bind,source=$HOME/.ssh,target=/home/app/.ssh \
---mount type=bind,source=$BASE_DIR/../api,target=/api \
---mount type=bind,source=$BASE_DIR/../frontend,target=/frontend \
+--mount type=bind,source=$BASE_DIR/../src/api,target=/api \
+--mount type=bind,source=$BASE_DIR/../src/frontend,target=/frontend \
 -e GOOGLE_APPLICATION_CREDENTIALS=$GOOGLE_APPLICATION_CREDENTIALS \
 -e GCP_PROJECT=$GCP_PROJECT \
 -e GCP_ZONE=$GCP_ZONE $IMAGE_NAME
