@@ -14,6 +14,7 @@ models = {
         # "RNN": "rnn",
         "RNN with attention": "rnn_attention",
         # "BERT": "bert"
+        "Transformer": "transformer"
     }
 }
 
