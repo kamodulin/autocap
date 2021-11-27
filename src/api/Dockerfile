@@ -12,7 +12,7 @@ RUN set -ex; \
     pip install --no-cache-dir --upgrade pip && \
     pip install pipenv
 
-EXPOSE 5000
+EXPOSE 8000
 
 USER app
 WORKDIR /app
@@ -24,4 +24,4 @@ RUN pipenv install
 COPY . ./
 
 ENTRYPOINT ["/bin/bash"]
-CMD ["-c", "pipenv run python3 app.py"]
+CMD ["-c", "pipenv run gunicorn -w 4 app:app -b 0.0.0.0:8000"]
