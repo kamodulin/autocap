@@ -17,4 +17,4 @@ docker build -t $IMAGE_NAME -f Dockerfile .
 # -p: Publish a container's port(s) to the host (host_port: container_port) (source: https://dockerlabs.collabnix.com/intermediate/networking/ExposingContainerPort.html)
 docker run --rm --name $IMAGE_NAME -ti \
 --mount type=bind,source="$BASE_DIR",target=/app \
--p 5001:8000 $IMAGE_NAME
+-p 5001:5000 $IMAGE_NAME
