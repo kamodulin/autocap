@@ -1,29 +1,38 @@
-AC215-Template
-==============================
+# AutoCap: Automatic Image Captioning - An AC215 DevOps project
 
-AC215
+## File structure
+```
+AC215_AutoCap/
+├── extension/ # browser extension files
+│   └── safari/
+├── deployment/
+│   ├── scripts/ # includes scripts for docker image deployment and K8s cluster creation
+│   ├── Dockerfile
+│   ├── docker-shell.sh
+│   └── README.md # setup deployment config and steps to deploy app to GCP
+├── models
+├── notebooks
+├── references
+├── src/ # main source code
+│   ├── api/
+│   ├── frontend/
+│   └── README.md # instructions for local development
+├── submissions/
+│   ├── milestone1_AutoCap/
+│   ├── milestone2_AutoCap/
+│   └── milestone3_AutoCap/
+├── .gitignore
+├── LICENSE
+└── README.md
+```
 
-Project Organization
-------------
-      .
-      ├── LICENSE
-      ├── Makefile
-      ├── README.md
-      ├── models
-      ├── notebooks
-      ├── references
-      ├── requirements.txt
-      ├── setup.py
-      ├── src
-      │   ├── __init__.py
-      │   └── build_features.py
-      ├── submissions
-      │   ├── milestone1_groupname
-      │   ├── milestone2_groupname
-      │   ├── milestone3_groupname
-      │   └── milestone4_groupname
-      └── test_project.py
+## Components
+### Main source code
+These components are located within `src`.
+- **API** - Flask API served with `gunicorn`. Our API exposes two endpoints, `/models` and `/predict`. A GET request to `/models` returns a JSON object which includes all of the vision and language models that are available. A POST request to `/predict` that includes image data and specific vision and language models will return an image caption and an attention array.
+- **Frontend** - Single-page React application. Static files are served with `nginx`. Main components of this app include an image uploader, attention overlay, and caption. More specifically, our image uploader will make a POST request to our `/predict` API endpoint with the vision and language models selected in the settings pane. The response of this request will update the caption component. Further, hovering over each word within the caption will update the attention overlay component that sits above the image.
 
---------
+### Browser Extension
+Located within `extension`. Installation instructions are in the works.
 
-<p><small>Project based on the <a target="_blank" href="https://drivendata.github.io/cookiecutter-data-science/">cookiecutter data science project template</a>. #cookiecutterdatascience</small></p>
+We have developed a Safari browser extension to automatically add alternative text to images that do not already have this attribute. Hopefully, this will allow people with visual impairments that heavily rely on screen readers to better understand the content of images on webpages they visit.
