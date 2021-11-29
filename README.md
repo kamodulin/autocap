@@ -3,13 +3,13 @@
 ## File structure
 ```
 AC215_AutoCap/
-├── extension/ # browser extension files
-│   └── safari/
 ├── deployment/
 │   ├── scripts/ # includes scripts for docker image deployment and K8s cluster creation
 │   ├── Dockerfile
 │   ├── docker-shell.sh
 │   └── README.md # setup deployment config and steps to deploy app to GCP
+├── extension/ # browser extension files
+│   └── safari/
 ├── models
 ├── notebooks
 ├── references
