@@ -5,7 +5,7 @@
 
   vars:
     cluster_name: "autocap-app-cluster"
-    machine_type: "n1-standard-1"
+    machine_type: "n2-standard-2"
     machine_disk_size: 30
     initial_node_count: 2
 
@@ -244,7 +244,9 @@
           annotations:
             kubernetes.io/ingress.class: "nginx"
             nginx.ingress.kubernetes.io/ssl-redirect: "false"
-            nginx.ingress.kubernetes.io/proxy-body-size: "25m"
+            nginx.org/client-max-body-size: "25m"
+            nginx.ingress.kubernetes.io/proxy-read-timeout: "600"
+            nginx.ingress.kubernetes.io/proxy-send-timeout: "600"
             nginx.org/rewrites: "serviceName=frontend rewrite=/;serviceName=api rewrite=/"
         spec:
           rules:

@@ -38,5 +38,4 @@ Scripts for [deployment](https://github.com/kamodulin/AC215_AutoCap/tree/master/
 We have updated the README at the root of our repository to describe our components.
 
 ## Future directions
-- There are a few bugs in production when deployed to GCP. Specifically, we cannot generate a caption if the uploaded image is larger than 1MB. This is becasue nginx limits the request entity size. We have tried to modify the `client_max_body_size` directive when deploying our K8s cluster with `nginx.ingress.kubernetes.io/proxy-body-size: "25m"` to no avail. More work needs to be done here, especially if we want users to be able to upload their own smartphone photos for example which are usually larger than 3MB in size.
 - We plan to purchase a domain name for our project and we need to enable HTTPS to allow our browser extension to work.
