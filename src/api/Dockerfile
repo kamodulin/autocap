@@ -24,4 +24,5 @@ RUN pipenv install
 COPY . ./
 
 ENTRYPOINT ["/bin/bash"]
-CMD ["-c", "pipenv run gunicorn -w 4 app:app -b 0.0.0.0:5000"]
+CMD ["-c", "pipenv run gunicorn app:app -b 0.0.0.0:5000"]
+
