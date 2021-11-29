@@ -100,7 +100,7 @@ def point_wise_feed_forward_network(d_model, dff):
     return tf.keras.Sequential([
                 tf.keras.layers.Dense(dff, activation='relu'),  # (batch_size, seq_len, dff)
                 tf.keras.layers.Dense(d_model)])  # (batch_size, seq_len, d_model)])
-                
+
 
 # encoder layer building block
 class EncoderLayer(tf.keras.layers.Layer):
@@ -175,6 +175,10 @@ class Encoder(tf.keras.layers.Layer):
               input_shape=input_shape, include_top=False, weights='imagenet')
         elif image_model == 'vgg16':
             base_model = tf.keras.applications.vgg16.VGG16(input_shape=input_shape,
+                                                    include_top=False,
+                                                    weights='imagenet')
+        elif image_model == 'efficientnetb0':
+            base_model = tf.keras.applications.efficientnet.EfficientNetB0(input_shape=input_shape,
                                                     include_top=False,
                                                     weights='imagenet')
         else:
