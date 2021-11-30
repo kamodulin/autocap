@@ -26,7 +26,7 @@ We created single-page application using a React frontend and a Flask API. We ha
 We have developed a Safari extension to automatically add alternative text to images. This only works locally currently. For production, we will have to configure HTTPS and change our API configuration to allow requests from all origins. We also plan to create a similar Chrome extension.
 
 ## Kubernetes Deployment
-Scripts for [deployment](https://github.com/kamodulin/AC215_AutoCap/tree/master/deployment) are located at `AC215_AutoCap/deployment/scripts`. A live version of our app can be found at 35.184.234.242.sslip.io
+Scripts for [deployment](https://github.com/kamodulin/AC215_AutoCap/tree/master/deployment) are located at `AC215_AutoCap/deployment/scripts`. A live version of our app can be found at 35.192.169.60.sslip.io
 
 ### Screenshot of K8s deployment
 ![](assets/k8s_terminal.png)
