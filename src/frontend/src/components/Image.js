@@ -1,5 +1,7 @@
 import React from 'react';
+import AttentionHeadList from './AttentionHeadList';
 import AttentionOverlay from './AttentionOverlay';
+
 
 class Image extends React.Component {
     constructor(props) {
@@ -18,6 +20,10 @@ class Image extends React.Component {
             file: file
         })
         this.props.onChange(file);
+    }
+
+    onHeadChange = (type, value) => {
+        this.props.onHeadChange(type, value);
     }
 
     destroyImage = () => {
@@ -70,6 +76,9 @@ class Image extends React.Component {
                             <button className="red-button" onClick={this.destroyImage} >
                                 Discard
                             </button>
+                            {this.props.attention.data &&
+                                <AttentionHeadList num_heads={this.props.attention.data.length} languageModel={this.props.languageModel} onChange={this.onHeadChange}/> 
+                            }
                         </div>
                     </div>
                 }

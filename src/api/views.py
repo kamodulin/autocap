@@ -34,8 +34,12 @@ def predict():
 
     caption, attention_array = model.predict(image_object, vision_model,
                                             language_model)
+    if data["language"] == "Transformer":
+        attention_array_list = [attention_array[i].tolist() for i in range(attention_array.shape[0])]
+    else:  
+        attention_array_list = [attention_array.tolist()]                                      
 
     return {
         "caption": caption,
-        "attention": attention_array.tolist()
+        "attention": attention_array_list
     }
