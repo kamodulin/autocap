@@ -1,7 +1,10 @@
 # API and React Frontend - Local Development
 
 ## Flask API
--  `cd api`
+- `cd api`
+- `mkdir models`
+- Download all models from [Google Drive](https://drive.google.com/drive/u/0/folders/1Fmduznf6Agnyt2Jx2D1l0YqqghqvOG0b) and place them within this newly created `models` folder.
+
 - Run `sh docker-shell.sh`
 
 This will run the api on port 5001 of your local machine.

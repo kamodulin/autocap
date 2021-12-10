@@ -22,7 +22,7 @@ class Settings extends React.Component {
             this.setState({
                 availableModels: {
                     vision: vision,
-                    language: language,
+                    language: language
                 },
                 loaded: true
             });
