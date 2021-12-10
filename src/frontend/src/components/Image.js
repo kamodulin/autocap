@@ -68,7 +68,13 @@ class Image extends React.Component {
                     </div>
                 }
                 {this.state.preview &&
-                    <div className="relative my-4">
+                    <div className="relative space-y-4 my-4">
+                        <div className="flex">
+                            {(this.props.attention.data && this.props.languageModel === "Transformer") ? (
+                                <AttentionHeadList num_heads={this.props.attention.data.length} languageModel={this.props.languageModel} onChange={this.onHeadChange} />
+                            ) : null
+                            }
+                        </div>
                         <div className="flex space-x-4">
                             <button className="green-button" onClick={this.onSubmit} >
                                 Submit
@@ -76,9 +82,6 @@ class Image extends React.Component {
                             <button className="red-button" onClick={this.destroyImage} >
                                 Discard
                             </button>
-                            {this.props.attention.data &&
-                                <AttentionHeadList num_heads={this.props.attention.data.length} languageModel={this.props.languageModel} onChange={this.onHeadChange}/> 
-                            }
                         </div>
                     </div>
                 }
