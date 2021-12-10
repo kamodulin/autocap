@@ -1,5 +1,7 @@
 import React from 'react';
+import AttentionHeadList from './AttentionHeadList';
 import AttentionOverlay from './AttentionOverlay';
+
 
 class Image extends React.Component {
     constructor(props) {
@@ -18,6 +20,10 @@ class Image extends React.Component {
             file: file
         })
         this.props.onChange(file);
+    }
+
+    onHeadChange = (type, value) => {
+        this.props.onHeadChange(type, value);
     }
 
     destroyImage = () => {
@@ -62,7 +68,13 @@ class Image extends React.Component {
                     </div>
                 }
                 {this.state.preview &&
-                    <div className="relative my-4">
+                    <div className="relative space-y-4 my-4">
+                        <div className="flex">
+                            {(this.props.attention.data && this.props.languageModel === "Transformer") ? (
+                                <AttentionHeadList num_heads={this.props.attention.data.length} languageModel={this.props.languageModel} onChange={this.onHeadChange} />
+                            ) : null
+                            }
+                        </div>
                         <div className="flex space-x-4">
                             <button className="green-button" onClick={this.onSubmit} >
                                 Submit

@@ -172,16 +172,17 @@ def evaluate_transformer(image, transformer, tokenizer, *, max_seq_length=52, at
         max = np.max(attention_array, axis=2, keepdims=True)
         min = np.min(attention_array, axis=2, keepdims=True)
     attention_array = attention_weights['decoder_layer2_block2']
-    attention_array = attention_array[0,0,:num_words,:].numpy()
-    max = np.max(attention_array, axis=1, keepdims=True)
-    min = np.min(attention_array, axis=1, keepdims=True)
+    attention_array = attention_array[0,:,:num_words,:].numpy()
+    max = np.max(attention_array, axis=2, keepdims=True)
+    min = np.min(attention_array, axis=2, keepdims=True)
     attention_array = (attention_array - min) / (max - min)
     
     length = int(np.sqrt(attention_features_shape))
     # Brendan: this also needs to be changed
     if False:
         attention_array = attention_array.reshape(-1, attention_num_heads,length, length)
-    attention_array = attention_array.reshape(-1,length, length)
+    #attention_array = attention_array.reshape(-1,length, length)
+    attention_array = attention_array.reshape(attention_num_heads, num_words, length, length)
 
     return result, attention_array
 

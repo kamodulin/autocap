@@ -18,7 +18,8 @@ class App extends React.Component {
       },
       attention: {
         data: null,
-        idx: null
+        idx: null,
+        idh: null
       }
     }
   }
@@ -29,6 +30,17 @@ class App extends React.Component {
     } else if (type === "language") {
       this.setState({ languageModel: value });
     }
+    this.setState({
+      caption: {
+        status: null,
+        text: null
+      },
+      attention: {
+        data: null,
+        idx: null,
+        idh: null
+      }
+    })
   }
 
   onImageChange = (image) => {
@@ -43,16 +55,28 @@ class App extends React.Component {
         },
         attention: {
           data: null,
-          idx: null
+          idx: null,
+          idh: null
         }
       });
     }
   }
 
+  onHeadChange = (type, value) => {
+    var attention = { ...this.state.attention };
+    if (value !== null && this.state.attention.data) {
+      attention.idh = value;
+    } else {
+      attention.idh = null;
+    }
+    this.setState({ attention });
+  }
+
   onWordHover = (idx) => {
     var attention = { ...this.state.attention };
-    if (idx !== null && this.state.attention.data) {
-      attention.idx = this.state.attention.data[idx];
+    let idh = this.state.attention.idh;
+    if (idx !== null && idh !== null && this.state.attention.data) {
+      attention.idx = this.state.attention.data[idh][idx];
     } else {
       attention.idx = null;
     }
@@ -81,7 +105,8 @@ class App extends React.Component {
 
       var attention = {
         data: res.attention,
-        idx: null
+        idx: null,
+        idh: 0
       }
 
       this.setState({ caption: caption, attention: attention });
@@ -98,7 +123,7 @@ class App extends React.Component {
         </h2>
         <div id="container">
           <div id="content">
-            <Image attention={this.state.attention} onChange={this.onImageChange} onSubmit={this.onSubmit} />
+            <Image attention={this.state.attention} languageModel={this.state.languageModel} onChange={this.onImageChange} onSubmit={this.onSubmit} onHeadChange={this.onHeadChange}/>
             <Caption caption={this.state.caption} onWordHover={this.onWordHover} />
           </div>
           <div id="settings">
