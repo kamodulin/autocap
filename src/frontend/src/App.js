@@ -19,7 +19,7 @@ class App extends React.Component {
       attention: {
         data: null,
         idx: null,
-        idh: 0
+        idh: null
       }
     }
   }
@@ -38,7 +38,7 @@ class App extends React.Component {
       attention: {
         data: null,
         idx: null,
-        idh: 0
+        idh: null
       }
     })
   }
@@ -56,7 +56,7 @@ class App extends React.Component {
         attention: {
           data: null,
           idx: null,
-          idh: 0
+          idh: null
         }
       });
     }
@@ -67,7 +67,7 @@ class App extends React.Component {
     if (value !== null && this.state.attention.data) {
       attention.idh = value;
     } else {
-      attention.idh = 0;
+      attention.idh = null;
     }
     this.setState({ attention });
   }
