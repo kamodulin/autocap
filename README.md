@@ -33,6 +33,6 @@ These components are located within `src`.
 - **Frontend** - Single-page React application. Static files are served with `nginx`. Main components of this app include an image uploader, attention overlay, and caption. More specifically, our image uploader will make a POST request to our `/predict` API endpoint with the vision and language models selected in the settings pane. The response of this request will update the caption component. Further, hovering over each word within the caption will update the attention overlay component that sits above the image.
 
 ### Browser Extension
-Located within `extension`. Installation instructions are in the works.
+Located within `extension/chrome`.
 
-We have developed a Safari browser extension to automatically add alternative text to images that do not already have this attribute. Hopefully, this will allow people with visual impairments that heavily rely on screen readers to better understand the content of images on webpages they visit.
+The AutoCap Chrome extension interfaces with the backend server API to iterate through all images without an `alt` attribute on a webpage, upload these images, and generate image captions. Return captions are added to the corresponding `img` tag. Hopefully, this will allow people with visual impairments that heavily rely on screen readers to better understand the content of images on websites they visit. We also plan to create a similar Safari extension in the future.
