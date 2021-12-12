@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1025B59327645A91004E42CA /* test.js in Resources */ = {isa = PBXBuildFile; fileRef = 1025B59227645A91004E42CA /* test.js */; };
 		1079A1E1274C206F00990442 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1079A1E0274C206F00990442 /* AppDelegate.swift */; };
 		1079A1E5274C206F00990442 /* Main.html in Resources */ = {isa = PBXBuildFile; fileRef = 1079A1E3274C206F00990442 /* Main.html */; };
 		1079A1E7274C206F00990442 /* Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 1079A1E6274C206F00990442 /* Icon.png */; };
@@ -48,6 +49,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		1025B59227645A91004E42CA /* test.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = test.js; sourceTree = "<group>"; };
 		1079A1DD274C206F00990442 /* AutoCap.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AutoCap.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1079A1E0274C206F00990442 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		1079A1E4274C206F00990442 /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.html; name = Base; path = ../Base.lproj/Main.html; sourceTree = "<group>"; };
@@ -146,6 +148,7 @@
 		1079A202274C207000990442 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				1025B59227645A91004E42CA /* test.js */,
 				1079A219274C2D1800990442 /* common.js */,
 				1079A203274C207000990442 /* script.js */,
 			);
@@ -248,6 +251,7 @@
 			files = (
 				1079A209274C207000990442 /* SafariExtensionViewController.xib in Resources */,
 				1079A204274C207000990442 /* script.js in Resources */,
+				1025B59327645A91004E42CA /* test.js in Resources */,
 				1079A21A274C2D1800990442 /* common.js in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

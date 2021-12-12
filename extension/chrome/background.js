@@ -1,4 +1,4 @@
-VISION_MODEL = "EfficientNet B0"
+VISION_MODEL = "InceptionV3"
 LANGUAGE_MODEL = "Transformer"
 BASE_API_URL = "http://35.192.169.60.sslip.io/api"
 
@@ -44,7 +44,6 @@ chrome.runtime.onMessage.addListener(function (message, sender, sendResponse) {
     if (message.msg === 'image') {
         srcToFile(message.image).then(file => {
             process(file, "/predict").then(res => {
-                console.log(res);
                 sendResponse([res, null]);
             }).catch(err => {
                 sendResponse([null, err]);

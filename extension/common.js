@@ -1,6 +1,6 @@
-VISION_MODEL = "EfficientNet B0"
-LANGUAGE_MODEL = "RNN with attention"
-BASE_API_URL = "http://localhost:5001"
+VISION_MODEL = "VGG16"
+LANGUAGE_MODEL = "Transformer"
+BASE_API_URL = "http://35.192.169.60.sslip.io/api"
 
 function srcToFile(src) {
     return (fetch(src)
