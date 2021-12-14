@@ -1,6 +1,6 @@
 # AutoCap - Image Captioning
 
-**This article was produced as part of the final project for Harvard’s AC215 Fall 2021 course.**
+*This article was produced as part of the final project for Harvard’s AC215 Fall 2021 course.*
 
 Project: “Caption this image”
 
