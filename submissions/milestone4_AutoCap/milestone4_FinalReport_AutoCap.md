@@ -111,7 +111,7 @@ Frontend React and Flask API containers are first built and pushed to the Google
 We created a Chrome browser extension to automatically add alternative text to images so that people who heavily rely on screen readers, such as those with visual impairments, can better understand the content of images on websites they visit. The extension iterates through all images without an `alt` attribute on a webpage and uploads these images to our Flask API. Returned captions are automatically added to the corresponding `img` tag. We also plan to create a similar Safari extension in the future. [Chrome extension demonstration video](https://youtu.be/u89L2u9Lzfc).
 
 ## Conclusion and Future Directions
-This application provided numerous opportunities to develop our skills at each layer of the DLOps stack -- data, models, development, and operations. We created complex image captioning models using a variety of modern techniques. Furthermore, we were able to create a web application and browser extension to showcase the power and utility of our models to a wider audience.
+This application provided numerous opportunities to develop our skills at each layer of the DLOps stack — data, models, development, and operations. We created complex image captioning models using a variety of modern techniques and were able to create a web application and browser extension to showcase the power and utility of these models to a wider audience.
 
 During this process we’ve also considered a lot of additional improvements we’d like to make. Some of these ideas are captured below:
 - Leverage pre-trained GLoVe embeddings to decrease model training time and improve performance
@@ -123,12 +123,16 @@ During this process we’ve also considered a lot of additional improvements we�
 
 Additional image captioning architectures exist which provide improved results upon traditional CNN + Transformer methods. These models use advanced techniques such as geometric attention, sequence-to-sequence prediction, bipartite matching, etc. Incorporation of these architectures alternative models into the application is an area for future enhancement. Some of these papers are listed below for reference:
 
-- https://arxiv.org/pdf/1906.05963.pdf
-- https://arxiv.org/pdf/2101.10804.pdf
-- https://arxiv.org/pdf/2005.12872.pdf
-- https://arxiv.org/pdf/1908.06954.pdf
-- https://arxiv.org/pdf/1912.08226.pdf
+### Related Research Publications:
+Simao Herdade, Armin Kappeler, Kofi Boakye, Joao Soares: “Image Captioning: Transforming Objects into Words”, 2019; [http://arxiv.org/abs/1906.05963 arXiv:1906.05963]
 
+Wei Liu, Sihan Chen, Longteng Guo, Xinxin Zhu, Jing Liu: “CPTR: Full Transformer Network for Image Captioning”, 2021; [http://arxiv.org/abs/2101.10804 arXiv:2101.10804]
+
+Nicolas Carion, Francisco Massa, Gabriel Synnaeve, Nicolas Usunier, Alexander Kirillov, Sergey Zagoruyko: “End-to-End Object Detection with Transformers”, 2020; [http://arxiv.org/abs/2005.12872 arXiv:2005.12872]
+
+Lun Huang, Wenmin Wang, Jie Chen, Xiao-Yong Wei: “Attention on Attention for Image Captioning”, 2019; [http://arxiv.org/abs/1908.06954 arXiv:1908.06954]
+
+Marcella Cornia, Matteo Stefanini, Lorenzo Baraldi, Rita Cucchiara: “Meshed-Memory Transformer for Image Captioning”, 2019; [http://arxiv.org/abs/1912.08226 arXiv:1912.08226]
 
 ## References
 Bahdanau, Dzmitry, Kyunghyun Cho, and Yoshua Bengio. "Neural machine translation by jointly learning to align and translate." arXiv preprint arXiv:1409.0473 (2014).
